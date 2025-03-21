@@ -22,6 +22,8 @@ This is a password manager CLI application that helps you securely store and man
 2. The program hashes your password (i.e. converts it to a unique string 64 characters long). It also creates a device secret, which is a random string of 10 characters. The masterkey is derived from the hashed password and device secret using the [PBKDF2 algorithm](https://cryptobook.nakov.com/mac-and-key-derivation/pbkdf2). Generating the key this way protects your hashed master password from [dictionary attacks](https://en.wikipedia.org/wiki/Dictionary_attack) and [rainbow table attacks](https://en.wikipedia.org/wiki/Rainbow_table). 
 3. Once your master password is configured successfully, you can add, retrieve or delete passwords. Your passwords are encrypted and decrypted using the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) algorithm and the master key.   
 
+This application uses a <b>MariaDB</b> database to store a user's passwords. See [here](https://www.mariadbtutorial.com/getting-started/install-mariadb/) for instructions to install and configure MariaDB.  
+
 ## Features <a name="features"></a>
 
 - Securely store passwords
