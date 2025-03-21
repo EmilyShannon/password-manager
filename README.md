@@ -6,7 +6,7 @@
 3. [Installation](#installation)
 4. [Usage](#usage)
 
-    0. [Configuring the database](#configuration)
+    0. [Configuring the database](#config)
     1. [Adding a New Password](#add)
     2. [Retrieving a Password](#retrieve)
     3. [Deleting a Password](#delete)
@@ -56,7 +56,7 @@ Run `password_manager.py a --site <site_name> --login <username> --url <site_url
  - `username` should be your username on this site, e.g. 'EmilyShannon'.
  - `url` should be the link to the site, e.g. 'https://github.com/'.
 
-2. <b>To retrieve an existing password: </b> <a name="retrive"></a>
+2. <b>To retrieve an existing password: </b> <a name="retrieve"></a>
 
 Run `password_manager.py r --site <site_name> --login <username> --url <site_url> --email <email_address>` 
  - `site_name` should be the name of the site or service this password is for, e.g. 'github'.
