@@ -25,17 +25,20 @@ def retrieveEntries(master_pass, device_secret, search, decrypt_pass = False):
         rprint("[red][!] An error occurred while retrieving the entries")
         rprint(e)
         data_base.rollback()
-        return
+        return None
 
     results = cursor.fetchall()
     if len(results) == 0:
         rprint("[yellow][!] No entries found")
-        return
+        return None
+        
+    data_base.close()
+    return results
     
+def display_retrieval_results(master_pass, device_secret, results, decrypt_pass=False):
     # If there are multiple results, display a table
-    # In both of these cases we don't decrypt and copy the password to the clipboard
     if (decrypt_pass and len(results) > 1) or (not decrypt_pass):
-        table = Table(title="Results")
+        table = Table(title="Results for password retrieval")
         table.add_column("Site Name")
         table.add_column("Site URL")
         table.add_column("Email")
@@ -52,4 +55,4 @@ def retrieveEntries(master_pass, device_secret, search, decrypt_pass = False):
         pyperclip.copy(decrypted_pass.decode()) 
         rprint("[green][+][/green] Password copied to clipboard")
 
-    data_base.close()
+    return table

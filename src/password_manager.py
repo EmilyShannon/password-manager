@@ -9,12 +9,12 @@ from utils.databaseconfig import databaseconfig
 from utils.add import addEntry
 import utils.retrieve
 import utils.generate_pass
+import utils.update
 
 # TODO: Add description
 parser = argparse.ArgumentParser(description="")
 
-# TODO: add a delete option
-parser.add_argument("option", help="Options: (a) - add, (r) - retrieve, (g) - generate password")
+parser.add_argument("option", help="Options: (a) - add, (r) - retrieve, (g) - generate password, (d) - delete entry, (u) - update password")
 parser.add_argument("-L", "--length", type=int, default=16, help="Length of the password to generate")
 parser.add_argument("-s", "--site", help="Site Name")
 parser.add_argument("-l", "--login", help="Username")
@@ -47,20 +47,17 @@ def getAndValidateMasterPass():
 
 def main():
     if args.option in ["a", "add"]:
-        # TODO: Username and site url should be optional
         if args.site == None:
             rprint("[red][!] Site Name (-s) is required")
-            sys.exit(1)
-        if args.login == None:
-            rprint("[red][!] Username (-l) is required")
-            sys.exit(1)
-        if args.url == None:
-            rprint("[red][!] Site URL (-u) is required")
             sys.exit(1)
         # Email not required but we need to void NoneType error 
         if args.email == None:
             args.email = "" 
-
+        if args.login == None:
+            args.login = ""
+        if args.url == None:
+            args.url = ""
+        
         result = getAndValidateMasterPass()
 
         if result is not None:
@@ -83,8 +80,18 @@ def main():
         
 
         if result is not None:
-            utils.retrieve.retrieveEntries(result[0], result[1], search, decrypt_pass=args.copy)
+            results = utils.retrieve.retrieveEntries(result[0], result[1], search, decrypt_pass=args.copy)
+            utils.retrieve.display_retrieval_results(master_pass, device_secret, results, decrypt_pass=False)
+    
+    if args.option in ["u", "update"]:
+        result = getAndValidateMasterPass()
+        if args.site == None:
+            rprint("[red][!] Site Name (-s) is required")
+            sys.exit(1)
 
+        if result is not None:
+            # TODO implement this
+            utils.update.update_pass(result[0], result[1], search, decrypt_pass=args.copy)
 
     if args.option in ["g", "generate"]:
         if args.length == None:
