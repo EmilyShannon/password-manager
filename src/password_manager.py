@@ -47,7 +47,7 @@ def getAndValidateMasterPass():
 
 def main():
     if args.option in ["a", "add"]:
-        # TODO: Allow them to enter fields instead of exiting
+        # TODO: Username and site url should be optional
         if args.site == None:
             rprint("[red][!] Site Name (-s) is required")
             sys.exit(1)
@@ -88,6 +88,7 @@ def main():
 
     if args.option in ["g", "generate"]:
         if args.length == None:
+            # TODO make length not required since there is a default
             rprint("[red][!] Password length is required (-l) or (--length)")
             sys.exit(1)
         else:
