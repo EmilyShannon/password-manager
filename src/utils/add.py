@@ -22,8 +22,12 @@ def addEntry(master_pass, device_secret, sitename, siteurl, email, username):
     #Add the entry 
     data_base = databaseconfig()
     cursor = data_base.cursor()
-    query = "INSERT INTO password_manager.entries (sitename, siteurl, email, username, password) VALUES (%s, %s, %s, %s, %s)"
-    val=(sitename, siteurl, email, username, encrypted_pass)
+    query = "SELECT * FROM password_manager.entries"
+    cursor.execute(query)
+    results = cursor.fetchall()
+    id = len(results)
+    query = "INSERT INTO password_manager.entries (id, sitename, siteurl, email, username, password) VALUES (%s, %s, %s, %s, %s, %s)"
+    val=(id, sitename, siteurl, email, username, encrypted_pass)
     
     try:
         cursor.execute(query, val)
