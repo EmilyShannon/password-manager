@@ -1,4 +1,4 @@
-import retrieve 
+import utils.retrieve 
 def update_pass(master_pass, device_secret, search, decrypt_pass = False):
     results = retrieve.retrieveEntries(master_pass, device_secret, search, decrypt_pass = False)
 
