@@ -10,6 +10,7 @@ from utils.add import addEntry
 import utils.retrieve
 import utils.generate_pass
 import utils.update
+import utils.delete
 
 # TODO: Add description
 parser = argparse.ArgumentParser(description="")
@@ -66,7 +67,6 @@ def main():
 
     if args.option in ["r", "retrieve"]:
         result = getAndValidateMasterPass()
-
         search = {}
 
         if args.site is not None:
@@ -80,9 +80,27 @@ def main():
         
 
         if result is not None:
-            results = utils.retrieve.retrieveEntries(result[0], result[1], search, decrypt_pass=args.copy)
-            utils.retrieve.display_retrieval_results(master_pass, device_secret, results, decrypt_pass=False)
+            # TODO should wrap the database for security? 
+            master_pass, device_secret = result[0], result[1]
+            results, data_base = utils.retrieve.retrieve_entries(result[0], result[1], search, decrypt_pass=args.copy)
+            utils.retrieve.display_retrieval_results(master_pass, device_secret, results, data_base, decrypt_pass=args.copy)
     
+    if args.option in ["d", "delete"]:
+        result = getAndValidateMasterPass()
+        search = {}
+
+        if args.site is not None:
+            search["sitename"] = args.site
+        if args.login is not None:
+            search["username"] = args.login
+        if args.email is not None:
+            search["email"] = args.email
+        if args.url is not None:
+            search["siteurl"] = args.url
+
+        if result is not None:
+            utils.delete.delete_entry(result[0], result[1], search, decrypt_pass=args.copy)
+
     if args.option in ["u", "update"]:
         result = getAndValidateMasterPass()
         if args.site == None:

@@ -1,6 +1,6 @@
 import utils.retrieve 
 def update_pass(master_pass, device_secret, search, decrypt_pass = False):
-    results = retrieve.retrieveEntries(master_pass, device_secret, search, decrypt_pass = False)
+    results, data_base = utils.retrieve.retrieve_entries(master_pass, device_secret, search, decrypt_pass)
 
     if results == None:
         return 

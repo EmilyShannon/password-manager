@@ -39,7 +39,7 @@ def config():
 
     # Next, create a table named 'entries' in the database, which stores the user's entries in its columns
     # TODO - Add a check for the existence of the tables before creating them, print different message if they already existmysql -u username -pmysqld --skip-grant-tables
-    query = "CREATE TABLE password_manager.entries (sitename TEXT NOT NULL, siteurl TEXT NOT NULL, email TEXT, username TEXT, password TEXT NOT NULL)"
+    query = "CREATE TABLE password_manager.entries (id INT NOT NULL, sitename TEXT NOT NULL, siteurl TEXT NOT NULL, email TEXT, username TEXT, password TEXT NOT NULL)"
     response = cursor.execute(query)
     rprint("[green][+][/green] table 'entries' created successfully")
 
